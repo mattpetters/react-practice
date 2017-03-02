@@ -1,13 +1,56 @@
 import React, {PropTypes} from 'react';
+import {connect} from 'react-redux';
+import * as courseActions from '../../actions/courseActions';
 
 class CoursesPage extends React.Component {
+    constructor(props, context){
+        super(props,context);
+
+        //setting local state
+        this.state = {
+          course: {title: ""}
+        };
+
+        this.onTitleChange = this.onTitleChange.bind(this); //doing a bind here is better than binding in render()
+        // because a new bind() would get created for every rerender
+        this.onClickSave = this.onClickSave.bind(this);
+    }
+
+    onTitleChange(event){
+        const course = this.state.course; //react doesn't autobind in ES6 classes
+        course.title = event.target.value;
+        this.setState({course:course});
+    }
+
+    onClickSave(){
+        this.props.dispatch(courseActions.createCourse(this.state.course));
+    }
+
     render(){
         return (
             <div>
                 <h1>Courses</h1>
+                <h2>Add Course</h2>
+                <input
+                    type="text"
+                    onChange={this.onTitleChange}
+                    value={this.state.course.title}
+                />
+                <input
+                    type="submit"
+                    value="Save"
+                    onClick={this.onClickSave}
+                />
             </div>
         );
     }
 }
 
-export default CoursesPage;
+function mapStateToProps(state, ownProps){
+    return {
+        courses: state.courses
+    }; //comes from root reducer, aliasing courseReducer
+}
+
+
+export default connect(mapStateToProps)(CoursesPage); //connect returns a function
