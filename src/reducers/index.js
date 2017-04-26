@@ -7,6 +7,6 @@ import courses from './courseReducer';
 //courses - shorthand for courses:courses
 const rootReducer = combineReducers({
     courses
-})
+});
 
 export default rootReducer;

@@ -10,30 +10,6 @@ import * as courseActions from '../../actions/courseActions';
 class CoursesPage extends React.Component {
     constructor(props, context) {
         super(props, context);
-
-        //setting local state
-        this.state = {
-            course: {
-                title: ""
-            }
-        };
-
-        //doing a bind here is better than binding in render()
-        // because a new bind() would get created for every rerender
-        this.onTitleChange = this.onTitleChange.bind(this);
-        this.onClickSave = this.onClickSave.bind(this);
-    }
-
-    onTitleChange(event) {
-        const course = this.state.course; //react doesn't autobind in ES6 classes
-        course.title = event.target.value;
-        this.setState({
-            course: course
-        });
-    }
-
-    onClickSave() {
-        this.props.actions.createCourse(this.state.course);
     }
 
     courseRow(course, index){
@@ -44,9 +20,6 @@ class CoursesPage extends React.Component {
         return (<div>
             <h1> Courses </h1> 
             {this.props.courses.map(this.courseRow)}
-            <h2> Add Course </h2> 
-            <input type = "text" onChange={this.onTitleChange} value={this.state.course.title}/> 
-            <input type = "submit" value = "Save" onClick = {this.onClickSave}/> 
             </div>);
     }
 }
