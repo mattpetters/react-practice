@@ -5,21 +5,10 @@ import initialState from './initialState';
 //state=[], setting the default parameter in ES6
 //these two combined return a new state that contains the new course that someone passed in
 //Reducers let you slice up your store's state changes into disparate functions
-export default function courseReducer(state = initialState.courses,  action) {
+export default function authorReducer(state = initialState.authors, action) {
     switch (action.type) {
-        case types.LOAD_COURSES_SUCCESS:
-            return action.courses;
-
-        case types.CREATE_COURSE_SUCCESS:
-            return [ 
-                ...state,
-                Object.assign({}, action.course)
-            ];
-        case types.UPDATE_COURSE_SUCCESS:
-            return [
-                ...state.filter(course => course.id !== action.course.id),
-                Object.assign({}, action.course)
-            ];
+        case types.LOAD_AUTHORS_SUCCESS:
+            return action.authors;
         default:
             return state;
     }
